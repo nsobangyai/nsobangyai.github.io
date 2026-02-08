@@ -1,0 +1,76 @@
+{% extends 'nso_base_special.html' %}
+{% block title %}
+  <title>NSO Informatics</title>
+{% endblock %}
+{% load static %}
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="{% static 'nso_main_style/index_style.css' %}" />
+{% endblock %}
+{% block body %}
+  <body class="align-middle">
+    <div class="nso-special">
+      <div class="queen-img text-center pt-4">
+        <img class="queen shadow" src="/static/Images/QUEEN_SIRIKIT-BW.jpg" alt="QUEEN_SIRIKIT" />
+      </div>
+      <div class="text-center fs-4 mt-2">
+        <span>สมเด็จพระนางเจ้าสิริกิติ์ พระบรมราชินีนาถ พระบรมราชชนนีพันปีหลวง</span>
+      </div>
+      <div class="text-center fs-5 mt-1">
+        <span>เสด็จสู่สวรรคาลัย</span>
+        <br>
+        <span>ผองพสกนิกรชาวไทยน้อมรำลึกในพระมหากรุณาธิคุณตราบนิจนิรันดร์</span>
+      </div>
+      <div class="row text-center fs-6 mt-1">
+        <span>ข้าพระพุทธเจ้า คณะผู้บริหาร พยาบาล และเจ้าหน้าที่</span>
+        <span>กลุ่มงานการพยาบาล โรงพยาบาลบางใหญ่ จังหวัดนนทบุรี</span>
+      </div>
+      <div class="login-text text-center mt-2">
+        <button type="button" class="btn btn-dark"><a href="nso_welcome">เข้าสู่ระบบสารสนเทศทางการพยาบาล</a>
+        </button>
+      </div>
+    </div>
+  </body>
+  <style>
+    body {
+      font-family: 'ptt_45_pride' !important;
+      font-size: 1.5em;
+      font-weight: bold;
+      background-image: url('/static/Images/BG-BLACK-WHITE.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed; /* Optional */
+      overflow-x: hidden;
+    }
+    a {
+      text-decoration: none;
+      color: aliceblue;
+    }
+    .queen {
+      width: 20%;
+      height: auto;
+    }
+    
+    @media screen and (min-width: 601px) {
+      .queen {
+        width: 20%;
+        height: auto;
+      }
+    }
+    
+    @media screen and (max-width: 600px) {
+      .queen {
+        width: 50%;
+        height: auto;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .queen {
+        width: 75%;
+        height: auto;
+      }
+    }
+  </style>
+{% endblock %}
+<!-- End Body -->
