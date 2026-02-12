@@ -1,0 +1,427 @@
+{% extends 'nso_base.html' %}
+{% block title %}
+  <title>NSO Health Status</title>
+{% endblock %}
+{% load static %}
+{% block style %}
+  <link rel="stylesheet" type="text/css" href="{% static 'nso_main_style/nso_qa_kpi_style.css' %}" />
+{% endblock %}
+<body>
+  <!-- Block Content -->
+  {% block content %}
+    <div class="row p-1 justify-content-center">
+      <!-- NSO Population -->
+      <div class="nso_pop text-center bg-cover mt-lg-2 fs-3">ข้อมูลสถานะสุขภาพ</div>
+      <div class="nso_pop text-center bg-cover mt-lg-2 mb-2 fs-4">ข้อมูลประชากร (Population)</div>
+      <div class="row col-lg-12 justify-content-center">
+        {% for k,v in df_url_pop_moph_results.iterrows %}
+          <div class="col-lg-4 justify-content-center border border-1 py-lg-2 px-lg-4">
+            <div class="col-lg-12 nso_total d-lg-flex align-items-center">
+              <h5 class="col-lg-6 card-title fs-3">{{v.b_year}}</h5>
+              <h3 class="col-lg-6 card-text text-end fs-2">{{v.TOTAL|floatformat:"0g"}}</h3>
+            </div>
+            <div class="nso_male_female d-lg-flex">
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body bg-info-subtle text-end">
+                  <h5 class="card-title">ชาย</h5>
+                  <h2 class="card-text fs-2">{{v.MALE|floatformat:"0g"}}</h2>
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="card">
+                <div class="card-body bg-danger-subtle text-end">
+                  <h5 class="card-title">หญิง</h5>
+                  <h2 class="card-text fs-2">{{v.FEMALE|floatformat:"0g"}}</h2>
+                </div>
+              </div>
+            </div>
+            </div>
+          </div>
+        {% endfor %}
+      <!-- End NSO Population -->
+      <div class="row mt-3">
+        <div class="col-lg-12">
+          <div class="kpi-name text-center mt-2 fs-3">อัตราการใช้บริการผู้ป่วยนอกทุกสิทธิรายเดือน (ครั้ง) แยกปีงบประมาณ</div>
+          <div class="row">
+            <!-- opd_all_results_total -->
+            <div class="col-lg-6 col-md-12 col-sm-12">
+              <div class="card border-0 my-2 h-auto w-100">
+                <div class="kpi-name text-center mt-2">สรุปจำนวนรายปีงบประมาณ</div>
+                <div class="card-body">
+                  <div class="kpi-th-name text-center"></div>
+                  <canvas id="opd_all_results_total" class="w-100"></canvas>
+                  <div class="kpi-eng-name text-center"></div>
+                </div>
+              </div>
+            </div>
+            <!-- End opd_all_results_total -->
+            <!-- opd_all_results_69 -->
+            <div class="col-lg-6 col-md-12 col-sm-1 align-content-end">
+              <div class="card border-0 my-2 h-auto">
+                <div class="kpi-name text-center mt-2">2569</div>
+                <div class="card-body">
+                  <div class="kpi-th-name text-center"></div>
+                  <canvas id="opd_all_results_69"></canvas>
+                  <div class="kpi-eng-name text-center"></div>
+                </div>
+              </div>
+            </div>
+            <!-- End opd_all_results_69 -->
+          </div>
+        </div>
+      </div>
+      <br />
+      <div class="row">
+        <!-- opd_all_results_66 -->
+        <div class="col-lg-4 col-md-12 col-sm-12">
+          <div class="card border-0 my-2 h-100">
+            <div class="kpi-name text-center mt-2">2566</div>
+            <div class="card-body">
+              <div class="kpi-th-name text-center"></div>
+              <canvas id="opd_all_results_66"></canvas>
+              <div class="kpi-eng-name text-center"></div>
+            </div>
+          </div>
+        </div>
+        <!-- End opd_all_results_66 -->
+        <!-- opd_all_results_67 -->
+        <div class="col-lg-4 col-md-12 col-sm-12">
+          <div class="card border-0 my-2 h-100">
+            <div class="kpi-name text-center mt-2">2567</div>
+            <div class="card-body">
+              <div class="kpi-th-name text-center"></div>
+              <canvas id="opd_all_results_67"></canvas>
+              <div class="kpi-eng-name text-center"></div>
+            </div>
+          </div>
+        </div>
+        <!-- End opd_all_results_67 -->
+        <!-- opd_all_results_68 -->
+        <div class="col-lg-4 col-md-12 col-sm-12">
+          <div class="card border-0 my-2 h-100">
+            <div class="kpi-name text-center mt-2">2568</div>
+            <div class="card-body">
+              <div class="kpi-th-name text-center"></div>
+              <canvas id="opd_all_results_68"></canvas>
+              <div class="kpi-eng-name text-center"></div>
+            </div>
+          </div>
+        </div>
+        <!-- End opd_all_results_68 -->
+      </div>
+      <br />
+    </div>
+    <div class="nso_reference_data text-center mt-5">ที่มาข้อมูล</div>
+    <div class="nso_reference_data text-center">https://opendata.moph.go.th/api/report_data/</div>
+    <div class="nso_reference_data text-center mb-3">https://hdc.moph.go.th/nbi/public/main</div>    
+    <!-- Footer -->
+    {% block footer %}
+      {% include 'nso_footer.html' %}
+    {% endblock %}
+    <!-- End Footer -->
+
+    <style>
+      :root {
+        --bg-dark: #111e29;
+        --bg-light: #f1f1f1;
+        --blue: #0c1e29;
+        --dark-blue: #3d91c6;
+        --dark-blue02: #5b7c90;
+        --dark-blue03: #1c6b9c;
+        --white: #ffffff;
+        --dark-gray01: #343434;
+        --dark-gray02: #5b5b5b;
+        --light-gray01: #e6e6e6;
+        --hover-card: #f7f7f7;
+        --card-color-violet: #bc86ff;
+        --card-color-pink: #ff96e3;
+        --card-color-blue: #4dd8ff;
+        --card-color-green: #81ffec;
+        --gradient-rt: linear-gradient(to right top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+        --gradient-r: linear-gradient(to right, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+        --gradient-lt: linear-gradient(to left top, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+        --gradient-l: linear-gradient(to left, #d16ba5, #c777b9, #ba83ca, #aa8fd8, #9a9ae1, #8aa7ec, #79b3f4, #69bff8, #52cffe, #41dfff, #46eefa, #5ffbf1);
+        --blue-gradient-linear01: linear-gradient(109.6deg, rgb(61, 237, 253) 44.2%, rgb(3, 136, 238) 95.6%);
+        --blue-gradient-linear02: linear-gradient(91.9deg, rgb(75, 207, 250) 6.3%, rgb(25, 159, 249) 98.9%);
+        --purple-gradient-linear01: linear-gradient(43deg, #4158d0 0%, #c850c0 46%, #ffcc70 100%);
+        --blue-pink-linear-gradient: linear-gradient(62deg, #8ec5fc 0%, #e0c3fc 100%);
+        --orange-linear-gradient: linear-gradient(62deg, #fbab7e 0%, #f7ce68 100%);
+        --red01: rgba(255, 99, 132, 1);
+        --blue01: rgba(54, 162, 235, 1);
+        --yellow01: rgba(255, 206, 86, 1);
+        --green01: rgba(75, 192, 192, 1);
+        --purple01: rgba(153, 102, 255, 1);
+        --orange01: rgba(255, 159, 64, 1);
+      }
+      
+      html {
+        overflow-x: hidden;
+      }
+      body {
+        background-color: #f3faff;
+      }
+      @media screen and (min-width: 601px) {
+      }
+      @media screen and (max-width: 600px) {
+      }
+    </style>
+    <!-- CHART SCRIPTS -->
+    <script>
+    Chart.register(ChartDataLabels);
+    //--s_opd_all_results - 2569 --//
+    const s_opd_all_results_total = document.getElementById('opd_all_results_total')
+    const opd_all_results_total = new Chart(s_opd_all_results_total, {
+      type: 'bar',
+      data: {
+        labels: [{% for k,v in df_s_opd_all_result_ts.items %} '{{ k }}', {% endfor %}],
+        datasets: [
+          {
+            label: 'Total',
+            data: [{% for k,v in df_s_opd_all_result_ts.items %} '{{ v }}', {% endfor %}],
+            backgroundColor: ['rgba(54, 162, 235, 1)'],
+            borderColor: ['rgba(54, 162, 235, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgb(255, 99, 132)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+            borderWidth: 0,
+            datalabels: {
+              display: '',
+              anchor: 'end',
+              align: 'end',
+              offset:-5,
+              color: '#144264',
+              font: {
+                weight: 'bold',
+              }
+            },
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            grid: {
+              display: false,
+           }
+          },
+          y: {
+            beginAtZero: true,
+            min: 0,
+          }
+        },
+        plugins: {
+          legend: {
+            display: false,
+            labels: {
+              color: 'rgba(75, 192, 192, 1)'
+            }
+          }
+        }
+      }
+    });
+    //--End s_opd_all_results - TOTAL --//
+    //--s_opd_all_results - 2566 --//
+    const s_opd_all_results_66 = document.getElementById('opd_all_results_66')
+    const opd_all_results_66 = new Chart(s_opd_all_results_66, {
+      type: 'bar',
+      data: {
+        labels: [{% for k,v in df_s_opd_all_results.items %} '{{ k }}', {% endfor %}],
+        datasets: [
+          {
+            label: 'Total',
+            data: [{% for k,v in df_s_opd_all_results.items %} '{{ v.2566.10757 }}', {% endfor %}],
+            backgroundColor: ['rgba(75, 192, 192, 1)'],
+            borderColor: ['rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+            borderWidth: 0,
+            datalabels: {
+              display: '',
+              anchor: 'end',
+              align: 'end',
+              offset:-5,
+              color: '#144264',
+              font: {
+                weight: 'bold',
+              }
+            },
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            grid: {
+              display: false,
+           }
+          },
+          y: {
+            beginAtZero: true,
+            min: 0,
+          }
+        },
+        plugins: {
+          legend: {
+            display: false,
+            labels: {
+              color: 'rgba(75, 192, 192, 1)'
+            }
+          }
+        }
+      }
+    });
+    //--End s_opd_all_results - 2566 --//
+    //--s_opd_all_results - 2567 --//
+    const s_opd_all_results_67 = document.getElementById('opd_all_results_67')
+    const opd_all_results_67 = new Chart(s_opd_all_results_67, {
+      type: 'bar',
+      data: {
+        labels: [{% for k,v in df_s_opd_all_results.items %} '{{ k }}', {% endfor %}],
+        datasets: [
+          {
+            label: 'Total',
+            data: [{% for k,v in df_s_opd_all_results.items %} '{{ v.2567.10757 }}', {% endfor %}],
+            backgroundColor: ['rgba(75, 192, 192, 1)'],
+            borderColor: ['rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+            borderWidth: 0,
+            datalabels: {
+              display: '',
+              anchor: 'end',
+              align: 'end',
+              offset:-5,
+              color: '#144264',
+              font: {
+                weight: 'bold',
+              }
+            },
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            grid: {
+              display: false,
+           }
+          },
+          y: {
+            beginAtZero: true,
+            min: 0,
+          }
+        },
+        plugins: {
+          legend: {
+            display: false,
+            labels: {
+              color: 'rgba(75, 192, 192, 1)'
+            }
+          }
+        }
+      }
+    });
+    //--End s_opd_all_results - 2567 --//
+    //--s_opd_all_results - 2568 --//
+    const s_opd_all_results_68 = document.getElementById('opd_all_results_68')
+    const opd_all_results_68 = new Chart(s_opd_all_results_68, {
+      type: 'bar',
+      data: {
+        labels: [{% for k,v in df_s_opd_all_results.items %} '{{ k }}', {% endfor %}],
+        datasets: [
+          {
+            label: 'Total',
+            data: [{% for k,v in df_s_opd_all_results.items %} '{{ v.2568.10757 }}', {% endfor %}],
+            backgroundColor: ['rgba(75, 192, 192, 1)'],
+            borderColor: ['rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+            borderWidth: 0,
+            datalabels: {
+              display: '',
+              anchor: 'end',
+              align: 'end',
+              offset:-5,
+              color: '#144264',
+              font: {
+                weight: 'bold',
+              }
+            },
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            grid: {
+              display: false,
+           }
+          },
+          y: {
+            beginAtZero: true,
+            min: 0,
+          }
+        },
+        plugins: {
+          legend: {
+            display: false,
+            labels: {
+              color: 'rgba(75, 192, 192, 1)'
+            }
+          }
+        }
+      }
+    });
+    //--End s_opd_all_results - 2568 --//
+    //--s_opd_all_results - 2569 --//
+    const s_opd_all_results_69 = document.getElementById('opd_all_results_69')
+    const opd_all_results_69 = new Chart(s_opd_all_results_69, {
+      type: 'bar',
+      data: {
+        labels: [{% for k,v in df_s_opd_all_results.items %} '{{ k }}', {% endfor %}],
+        datasets: [
+          {
+            label: 'Total',
+            data: [{% for k,v in df_s_opd_all_results.items %} '{{ v.2569.10757 }}', {% endfor %}],
+            backgroundColor: ['rgba(75, 192, 192, 1)'],
+            borderColor: ['rgba(75, 192, 192, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgb(255, 99, 132)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+            borderWidth: 0,
+            datalabels: {
+              display: '',
+              anchor: 'end',
+              align: 'end',
+              offset:-5,
+              color: '#144264',
+              font: {
+                weight: 'bold',
+              }
+            },
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            grid: {
+              display: false,
+           }
+          },
+          y: {
+            beginAtZero: true,
+            min: 0,
+          }
+        },
+        plugins: {
+          legend: {
+            display: false,
+            labels: {
+              color: 'rgba(75, 192, 192, 1)'
+            }
+          }
+        }
+      }
+    });
+    //--End s_opd_all_results - 2569 --//
+
+  </script>
+  {% endblock %}
+  <!-- End Block Content -->
+</body>
