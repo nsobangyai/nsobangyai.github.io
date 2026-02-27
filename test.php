@@ -12,7 +12,7 @@
       CURLOPT_POSTFIELDS =>'{
       "tableName": "s_dm_screen_pop_age",
       "year": "2569",
-      "province": "11",
+      "province": "12",
       "type": "json"
     }',
       CURLOPT_HTTPHEADER => array(
