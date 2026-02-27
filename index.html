@@ -3,7 +3,7 @@
 <body>
   <a href="nso_dashboard_health_status.html">NSO_HEALTH_STATUS</a>
   <br>
-  <?php?>
+  <?php>
   $curl = curl_init();
     curl_setopt_array($curl, array(
       CURLOPT_URL => 'https://opendata.moph.go.th/api/report_data',
@@ -28,9 +28,11 @@
     $response = curl_exec($curl);
     
     curl_close($curl);
-    echo $response;</?>
+    echo $response;
+  <?>
 </body>
 </html>
+
 
 
 
